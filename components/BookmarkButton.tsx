@@ -21,8 +21,7 @@ export default function BookmarkButton({
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    const nowSaved = toggleBookmark(trial);
-    setSaved(nowSaved);
+    setSaved(toggleBookmark(trial));
   }
 
   const iconSize = size === "md" ? 18 : 15;
@@ -34,15 +33,11 @@ export default function BookmarkButton({
       aria-label={saved ? "Remove bookmark" : "Bookmark this trial"}
       className={`${btnSize} rounded-lg border transition-all ${
         saved
-          ? "bg-[#2563EB] border-[#2563EB] text-white"
-          : "bg-white border-[#E5E7EB] text-[#6B7280] hover:border-[#2563EB] hover:text-[#2563EB]"
+          ? "bg-[#2563EB] dark:bg-[#5B9BFF] border-[#2563EB] dark:border-[#5B9BFF] text-white"
+          : "bg-white dark:bg-[#181820] border-[#E5E7EB] dark:border-[#222232] text-[#6B7280] dark:text-[#8686A8] hover:border-[#2563EB] dark:hover:border-[#5B9BFF] hover:text-[#2563EB] dark:hover:text-[#5B9BFF]"
       }`}
     >
-      <Bookmark
-        size={iconSize}
-        fill={saved ? "currentColor" : "none"}
-        strokeWidth={2}
-      />
+      <Bookmark size={iconSize} fill={saved ? "currentColor" : "none"} strokeWidth={2} />
     </button>
   );
 }

@@ -6,45 +6,33 @@ import EligibilitySection from "@/components/EligibilitySection";
 import type { Trial } from "@/lib/clinicaltrials";
 import type { AISummary } from "@/lib/summarize";
 
-function SectionCard({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
-      <h2 className="text-base font-semibold text-[#111827] mb-4">{title}</h2>
+    <div className="bg-white dark:bg-[#111118] border border-[#E5E7EB] dark:border-[#222232] rounded-xl p-6 shadow-sm">
+      <h2 className="text-base font-semibold text-[#111827] dark:text-[#EAEAF5] mb-4">{title}</h2>
       {children}
     </div>
   );
 }
 
-function CollapsibleSection({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function CollapsibleSection({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-white border border-[#E5E7EB] rounded-xl shadow-sm overflow-hidden">
+    <div className="bg-white dark:bg-[#111118] border border-[#E5E7EB] dark:border-[#222232] rounded-xl shadow-sm overflow-hidden">
       <button
         onClick={() => setOpen((o) => !o)}
         className="w-full flex items-center justify-between px-6 py-4 text-left"
       >
-        <span className="text-base font-semibold text-[#111827]">{title}</span>
+        <span className="text-base font-semibold text-[#111827] dark:text-[#EAEAF5]">{title}</span>
         {open ? (
-          <ChevronUp size={16} className="text-[#6B7280]" />
+          <ChevronUp size={16} className="text-[#6B7280] dark:text-[#8686A8]" />
         ) : (
-          <ChevronDown size={16} className="text-[#6B7280]" />
+          <ChevronDown size={16} className="text-[#6B7280] dark:text-[#8686A8]" />
         )}
       </button>
       {open && (
-        <div className="px-6 pb-6 border-t border-[#F3F4F6]">
+        <div className="px-6 pb-6 border-t border-[#F3F4F6] dark:border-[#191924]">
           {children}
         </div>
       )}
@@ -100,65 +88,61 @@ export default function AISummaryClient({ trial }: { trial: Trial }) {
 
   return (
     <div className="space-y-4">
-      {/* 1. What is this trial? */}
       <SectionCard title="What is this trial?">
         {loading ? (
-          <div className="flex items-center gap-2 text-sm text-[#6B7280]">
+          <div className="flex items-center gap-2 text-sm text-[#6B7280] dark:text-[#8686A8]">
             <Loader2 size={14} className="animate-spin" />
             Generating plain-language summary...
           </div>
         ) : error ? (
-          <p className="text-sm text-[#6B7280] leading-relaxed">
+          <p className="text-sm text-[#6B7280] dark:text-[#8686A8] leading-relaxed">
             {trial.briefSummary ?? "No summary available for this trial."}
           </p>
         ) : (
-          <p className="text-sm text-[#374151] leading-relaxed">
+          <p className="text-sm text-[#374151] dark:text-[#CDCDE4] leading-relaxed">
             {summary?.plainSummary}
           </p>
         )}
       </SectionCard>
 
-      {/* 2. Am I eligible? */}
       <SectionCard title="Am I eligible?">
         <EligibilitySection summary={summary} loading={loading} error={error} />
       </SectionCard>
 
-      {/* 3. What's involved? */}
       <SectionCard title="What's involved?">
         {loading ? (
-          <div className="flex items-center gap-2 text-sm text-[#6B7280]">
+          <div className="flex items-center gap-2 text-sm text-[#6B7280] dark:text-[#8686A8]">
             <Loader2 size={14} className="animate-spin" />
             Summarizing study design...
           </div>
         ) : summary?.involved ? (
-          <p className="text-sm text-[#374151] leading-relaxed">
+          <p className="text-sm text-[#374151] dark:text-[#CDCDE4] leading-relaxed">
             {summary.involved}
           </p>
         ) : (
-          <p className="text-sm text-[#6B7280]">
+          <p className="text-sm text-[#6B7280] dark:text-[#8686A8]">
             Study design details are not available for this trial.
           </p>
         )}
       </SectionCard>
 
-      {/* 4. Where and how to apply */}
       <SectionCard title="Where and how to apply">
         <div className="space-y-4">
           {primaryLocation && (
             <div>
-              <p className="text-xs text-[#9CA3AF] uppercase tracking-wide font-medium mb-1.5">
+              <p className="text-xs text-[#9CA3AF] dark:text-[#44445E] uppercase tracking-wide font-medium mb-1.5">
                 Primary location
               </p>
-              <p className="text-sm font-medium text-[#111827]">
+              <p className="text-sm font-medium text-[#111827] dark:text-[#EAEAF5]">
                 {primaryLocation.facility}
               </p>
-              <p className="text-sm text-[#6B7280]">
+              <p className="text-sm text-[#6B7280] dark:text-[#8686A8]">
                 {[primaryLocation.city, primaryLocation.state, primaryLocation.country]
                   .filter(Boolean)
                   .join(", ")}
               </p>
               {trial.locations.length > 1 && (
-                <p className="text-xs text-[#6B7280] mt-1">
+                <p className="text-xs text-[#6B7280] dark:text-[#8686A8] mt-1">
                   +{trial.locations.length - 1} additional location
                   {trial.locations.length > 2 ? "s" : ""}
                 </p>
@@ -168,27 +152,21 @@ export default function AISummaryClient({ trial }: { trial: Trial }) {
 
           {primaryContact && (
             <div>
-              <p className="text-xs text-[#9CA3AF] uppercase tracking-wide font-medium mb-1.5">
+              <p className="text-xs text-[#9CA3AF] dark:text-[#44445E] uppercase tracking-wide font-medium mb-1.5">
                 Contact
               </p>
               {primaryContact.name && (
-                <p className="text-sm font-medium text-[#111827]">
+                <p className="text-sm font-medium text-[#111827] dark:text-[#EAEAF5]">
                   {primaryContact.name}
                 </p>
               )}
               {primaryContact.phone && (
-                <a
-                  href={`tel:${primaryContact.phone}`}
-                  className="text-sm text-[#2563EB] hover:underline block"
-                >
+                <a href={`tel:${primaryContact.phone}`} className="text-sm text-[#2563EB] dark:text-[#5B9BFF] hover:underline block">
                   {primaryContact.phone}
                 </a>
               )}
               {primaryContact.email && (
-                <a
-                  href={`mailto:${primaryContact.email}`}
-                  className="text-sm text-[#2563EB] hover:underline block"
-                >
+                <a href={`mailto:${primaryContact.email}`} className="text-sm text-[#2563EB] dark:text-[#5B9BFF] hover:underline block">
                   {primaryContact.email}
                 </a>
               )}
@@ -199,7 +177,7 @@ export default function AISummaryClient({ trial }: { trial: Trial }) {
             href={`https://clinicaltrials.gov/study/${trial.nctId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#2563EB] text-white text-sm font-medium rounded-xl hover:bg-[#1D4ED8] transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#2563EB] dark:bg-[#5B9BFF] text-white text-sm font-medium rounded-xl hover:bg-[#1D4ED8] dark:hover:bg-[#7DB2FF] transition-colors"
           >
             View on ClinicalTrials.gov
             <ExternalLink size={14} />
@@ -207,59 +185,46 @@ export default function AISummaryClient({ trial }: { trial: Trial }) {
         </div>
       </SectionCard>
 
-      {/* 5. Official details (collapsible) */}
       <CollapsibleSection title="Official details">
         <div className="mt-4 space-y-4 text-sm">
           {trial.officialTitle && (
             <div>
-              <p className="text-xs text-[#9CA3AF] uppercase tracking-wide font-medium mb-1">
+              <p className="text-xs text-[#9CA3AF] dark:text-[#44445E] uppercase tracking-wide font-medium mb-1">
                 Official title
               </p>
-              <p className="text-[#374151]">{trial.officialTitle}</p>
+              <p className="text-[#374151] dark:text-[#CDCDE4]">{trial.officialTitle}</p>
             </div>
           )}
           {trial.sponsor && (
             <div>
-              <p className="text-xs text-[#9CA3AF] uppercase tracking-wide font-medium mb-1">
-                Sponsor
-              </p>
-              <p className="text-[#374151]">{trial.sponsor}</p>
+              <p className="text-xs text-[#9CA3AF] dark:text-[#44445E] uppercase tracking-wide font-medium mb-1">Sponsor</p>
+              <p className="text-[#374151] dark:text-[#CDCDE4]">{trial.sponsor}</p>
             </div>
           )}
           {trial.studyType && (
             <div>
-              <p className="text-xs text-[#9CA3AF] uppercase tracking-wide font-medium mb-1">
-                Study type
-              </p>
-              <p className="text-[#374151]">{trial.studyType}</p>
+              <p className="text-xs text-[#9CA3AF] dark:text-[#44445E] uppercase tracking-wide font-medium mb-1">Study type</p>
+              <p className="text-[#374151] dark:text-[#CDCDE4]">{trial.studyType}</p>
             </div>
           )}
           {trial.enrollment !== undefined && (
             <div>
-              <p className="text-xs text-[#9CA3AF] uppercase tracking-wide font-medium mb-1">
-                Enrollment target
-              </p>
-              <p className="text-[#374151]">{trial.enrollment} participants</p>
+              <p className="text-xs text-[#9CA3AF] dark:text-[#44445E] uppercase tracking-wide font-medium mb-1">Enrollment target</p>
+              <p className="text-[#374151] dark:text-[#CDCDE4]">{trial.enrollment} participants</p>
             </div>
           )}
           {trial.eligibilityCriteria && (
             <div>
-              <p className="text-xs text-[#9CA3AF] uppercase tracking-wide font-medium mb-1">
-                Raw eligibility criteria
-              </p>
-              <pre className="whitespace-pre-wrap text-[#374151] font-sans leading-relaxed bg-[#F9FAFB] rounded-lg p-4 text-xs overflow-auto max-h-64">
+              <p className="text-xs text-[#9CA3AF] dark:text-[#44445E] uppercase tracking-wide font-medium mb-1">Raw eligibility criteria</p>
+              <pre className="whitespace-pre-wrap text-[#374151] dark:text-[#CDCDE4] font-sans leading-relaxed bg-[#F9FAFB] dark:bg-[#181820] rounded-lg p-4 text-xs overflow-auto max-h-64">
                 {trial.eligibilityCriteria}
               </pre>
             </div>
           )}
           {trial.briefSummary && (
             <div>
-              <p className="text-xs text-[#9CA3AF] uppercase tracking-wide font-medium mb-1">
-                Official brief summary
-              </p>
-              <p className="text-[#374151] leading-relaxed">
-                {trial.briefSummary}
-              </p>
+              <p className="text-xs text-[#9CA3AF] dark:text-[#44445E] uppercase tracking-wide font-medium mb-1">Official brief summary</p>
+              <p className="text-[#374151] dark:text-[#CDCDE4] leading-relaxed">{trial.briefSummary}</p>
             </div>
           )}
         </div>

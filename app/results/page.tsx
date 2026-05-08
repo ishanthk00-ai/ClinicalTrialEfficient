@@ -52,17 +52,17 @@ async function ResultsContent({ searchParams }: { searchParams: SearchParams }) 
   if (trials.length === 0) {
     return (
       <div className="text-center py-16 max-w-md mx-auto">
-        <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+        <div className="w-12 h-12 bg-gray-100 dark:bg-[#181820] rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
           🔍
         </div>
-        <h3 className="font-semibold text-[#111827] mb-2">No trials found</h3>
-        <p className="text-sm text-[#6B7280] leading-relaxed">
+        <h3 className="font-semibold text-[#111827] dark:text-[#EAEAF5] mb-2">No trials found</h3>
+        <p className="text-sm text-[#6B7280] dark:text-[#8686A8] leading-relaxed">
           No trials found for{" "}
-          <span className="font-medium text-[#111827]">{condition}</span>
+          <span className="font-medium text-[#111827] dark:text-[#EAEAF5]">{condition}</span>
           {location && (
             <>
               {" "}near{" "}
-              <span className="font-medium text-[#111827]">{location}</span>
+              <span className="font-medium text-[#111827] dark:text-[#EAEAF5]">{location}</span>
             </>
           )}
           . Try broadening your search by removing filters or searching without a location.
@@ -70,13 +70,13 @@ async function ResultsContent({ searchParams }: { searchParams: SearchParams }) 
         <div className="mt-6 flex flex-wrap gap-2 justify-center">
           <Link
             href={`/results?condition=${encodeURIComponent(condition)}`}
-            className="text-sm px-4 py-2 bg-white border border-[#E5E7EB] rounded-full hover:border-[#2563EB] text-[#374151] transition-colors"
+            className="text-sm px-4 py-2 bg-white dark:bg-[#111118] border border-[#E5E7EB] dark:border-[#222232] rounded-full hover:border-[#2563EB] dark:hover:border-[#5B9BFF] text-[#374151] dark:text-[#CDCDE4] transition-colors"
           >
             Search without location
           </Link>
           <Link
             href="/"
-            className="text-sm px-4 py-2 bg-[#2563EB] text-white rounded-full hover:bg-[#1D4ED8] transition-colors"
+            className="text-sm px-4 py-2 bg-[#2563EB] dark:bg-[#5B9BFF] text-white rounded-full hover:bg-[#1D4ED8] dark:hover:bg-[#7DB2FF] transition-colors"
           >
             New search
           </Link>
@@ -96,18 +96,18 @@ async function ResultsContent({ searchParams }: { searchParams: SearchParams }) 
   return (
     <>
       {totalCount !== undefined && (
-        <p className="text-sm text-[#6B7280] mb-5">
+        <p className="text-sm text-[#6B7280] dark:text-[#8686A8] mb-5">
           Showing {trials.length} of {totalCount.toLocaleString()} trials
           {condition && (
             <>
               {" "}for{" "}
-              <span className="font-medium text-[#111827]">{condition}</span>
+              <span className="font-medium text-[#111827] dark:text-[#EAEAF5]">{condition}</span>
             </>
           )}
           {location && (
             <>
               {" "}near{" "}
-              <span className="font-medium text-[#111827]">{location}</span>
+              <span className="font-medium text-[#111827] dark:text-[#EAEAF5]">{location}</span>
             </>
           )}
         </p>

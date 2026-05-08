@@ -59,18 +59,16 @@ export default function FilterPanel() {
     router.push(`/results?${params.toString()}`);
   }
 
-  const activeFilters = FILTER_GROUPS.filter((g) =>
-    searchParams.has(g.key)
-  ).length;
+  const activeFilters = FILTER_GROUPS.filter((g) => searchParams.has(g.key)).length;
 
   return (
     <aside className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-[#111827]">Filters</h2>
+        <h2 className="text-sm font-semibold text-[#111827] dark:text-[#EAEAF5]">Filters</h2>
         {activeFilters > 0 && (
           <button
             onClick={clearAll}
-            className="text-xs text-[#6B7280] hover:text-[#111827] flex items-center gap-1 transition-colors"
+            className="text-xs text-[#6B7280] dark:text-[#8686A8] hover:text-[#111827] dark:hover:text-[#EAEAF5] flex items-center gap-1 transition-colors"
           >
             <X size={12} />
             Clear all
@@ -82,7 +80,7 @@ export default function FilterPanel() {
         const current = searchParams.get(group.key);
         return (
           <div key={group.key}>
-            <h3 className="text-xs font-medium text-[#6B7280] uppercase tracking-wide mb-2.5">
+            <h3 className="text-xs font-medium text-[#6B7280] dark:text-[#8686A8] uppercase tracking-wide mb-2.5">
               {group.label}
             </h3>
             <div className="flex flex-col gap-1">
@@ -94,8 +92,8 @@ export default function FilterPanel() {
                     onClick={() => updateFilter(group.key, opt.value)}
                     className={`text-left px-3 py-2 rounded-lg text-sm transition-all ${
                       active
-                        ? "bg-[#EFF6FF] text-[#2563EB] font-medium"
-                        : "text-[#374151] hover:bg-[#F9FAFB]"
+                        ? "bg-[#EFF6FF] dark:bg-[#0B1828] text-[#2563EB] dark:text-[#5B9BFF] font-medium"
+                        : "text-[#374151] dark:text-[#EAEAF5] hover:bg-[#F9FAFB] dark:hover:bg-[#181820]"
                     }`}
                   >
                     {opt.label}

@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,13 +11,11 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["Sora", "system-ui", "sans-serif"],
+        display: ["Playfair Display", "Georgia", "serif"],
       },
       borderRadius: {
         "2xl": "1rem",
         "3xl": "1.25rem",
-      },
-      transitionTimingFunction: {
-        spring: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

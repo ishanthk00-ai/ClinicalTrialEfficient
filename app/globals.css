@@ -36,27 +36,49 @@
   --shadow-hover: 0 12px 40px rgba(0,0,0,0.10), 0 3px 10px rgba(0,0,0,0.05);
 }
 
+/* Dark tokens — set by html.dark (ThemeProvider) or system preference */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000000;
-    --btn-sat: 90%;
-    --btn-lit: 55%;
-    --bg-elevated: #1C1C1E;
-    --bg-secondary: #2C2C2E;
-    --text: #F5F5F7;
-    --text-secondary: #AEAEB2;
-    --text-tertiary: #6E6E73;
-    --border: #38383A;
-    --border-subtle: #2C2C2E;
-    --accent: #4B9EFF;
-    --accent-hover: #6AB0FF;
-    --accent-bg: #0D1F35;
-    --accent-glow: rgba(75, 158, 255, 0.12);
-    --nav-bg: rgba(0, 0, 0, 0.85);
-    --shadow-sm:    0 1px 2px rgba(0,0,0,0.4);
-    --shadow-md:    0 4px 20px rgba(0,0,0,0.55);
-    --shadow-hover: 0 12px 40px rgba(0,0,0,0.65);
+  :root:not([data-theme="light"]) {
+    --bg:             #0B0B10;
+    --bg-elevated:    #111118;
+    --bg-secondary:   #181820;
+    --text:           #EAEAF5;
+    --text-secondary: #8686A8;
+    --text-tertiary:  #44445E;
+    --border:         #222232;
+    --border-subtle:  #191924;
+    --accent:         #5B9BFF;
+    --accent-hover:   #7DB2FF;
+    --accent-bg:      #0B1828;
+    --accent-glow:    rgba(91, 155, 255, 0.14);
+    --nav-bg:         rgba(11, 11, 16, 0.88);
+    --shadow-sm:    0 1px 2px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4);
+    --shadow-md:    0 4px 24px rgba(0,0,0,0.75), 0 1px 4px rgba(0,0,0,0.45);
+    --shadow-hover: 0 14px 48px rgba(0,0,0,0.9), 0 4px 12px rgba(0,0,0,0.55);
+    --btn-sat: 88%;
+    --btn-lit: 56%;
   }
+}
+
+html.dark {
+  --bg:             #0B0B10;
+  --bg-elevated:    #111118;
+  --bg-secondary:   #181820;
+  --text:           #EAEAF5;
+  --text-secondary: #8686A8;
+  --text-tertiary:  #44445E;
+  --border:         #222232;
+  --border-subtle:  #191924;
+  --accent:         #5B9BFF;
+  --accent-hover:   #7DB2FF;
+  --accent-bg:      #0B1828;
+  --accent-glow:    rgba(91, 155, 255, 0.14);
+  --nav-bg:         rgba(11, 11, 16, 0.88);
+  --shadow-sm:    0 1px 2px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4);
+  --shadow-md:    0 4px 24px rgba(0,0,0,0.75), 0 1px 4px rgba(0,0,0,0.45);
+  --shadow-hover: 0 14px 48px rgba(0,0,0,0.9), 0 4px 12px rgba(0,0,0,0.55);
+  --btn-sat: 88%;
+  --btn-lit: 56%;
 }
 
 /* ── Base ── */
