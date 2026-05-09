@@ -482,6 +482,34 @@ textarea:focus-visible {
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 
+/* ── Nav-sized magnetic button ── */
+.magnetic-btn-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.38rem 1rem;
+  border-radius: 9999px;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s ease,
+    color 0.2s ease;
+  will-change: transform;
+}
+.magnetic-btn-nav:hover {
+  background-color: var(--accent);
+  color: #fff;
+}
+
 /* ── Popular search pill: active + focus states ── */
 .pill-search {
   transition: border-color 150ms ease-out, color 150ms ease-out,

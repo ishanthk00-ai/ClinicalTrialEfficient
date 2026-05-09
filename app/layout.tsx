@@ -3,6 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import ThemeProvider from "@/components/ThemeProvider";
 import ThemeToggle from "@/components/ThemeToggle";
+import MagneticButton from "@/components/MagneticButton";
 
 export const metadata: Metadata = {
   title: "TrialFind — Find Clinical Trials",
@@ -54,13 +55,12 @@ export default function RootLayout({
 
               {/* Right: saved + theme toggle */}
               <div className="ml-auto flex items-center gap-3">
-                <Link
-                  href="/saved"
-                  className="text-[13px] font-light transition-colors duration-150"
-                  style={{ color: "var(--text-secondary)" }}
-                >
+                <MagneticButton href="/saved" className="magnetic-btn-nav">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
                   Saved trials
-                </Link>
+                </MagneticButton>
                 <ThemeToggle />
               </div>
             </div>
