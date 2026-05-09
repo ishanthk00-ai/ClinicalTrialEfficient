@@ -114,8 +114,8 @@ async function ResultsContent({ searchParams }: { searchParams: SearchParams }) 
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {trials.map((trial) => (
-          <TrialCard key={trial.nctId} trial={trial} />
+        {trials.map((trial, index) => (
+          <TrialCard key={trial.nctId} trial={trial} index={index} />
         ))}
       </div>
 

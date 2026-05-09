@@ -10,12 +10,6 @@ export const metadata: Metadata = {
     "Search ClinicalTrials.gov in plain English. Find clinical trials for any condition, anywhere.",
 };
 
-const NAV_LINKS = [
-  { href: "/results", label: "Browse" },
-  { href: "#", label: "For Patients" },
-  { href: "#", label: "For Researchers" },
-  { href: "/about", label: "About" },
-];
 
 // Runs before hydration to prevent flash of wrong theme
 const themeScript = `
@@ -57,19 +51,6 @@ export default function RootLayout({
                 TrialFind
               </Link>
 
-              {/* Primary nav */}
-              <div className="hidden md:flex items-center gap-6 flex-1">
-                {NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="text-[13px] font-light transition-colors duration-150 hover:[color:var(--text)]"
-                    style={{ color: "var(--text-secondary)" }}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
 
               {/* Right: saved + theme toggle */}
               <div className="ml-auto flex items-center gap-3">
@@ -85,7 +66,9 @@ export default function RootLayout({
             </div>
           </nav>
 
-          {children}
+          <div className="page-fade">
+            {children}
+          </div>
 
           {/* Footer */}
           <footer

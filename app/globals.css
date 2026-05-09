@@ -7,6 +7,7 @@
 /* ── Design tokens ── */
 :root {
   --bg: #FBFBFD;
+  --shimmer-highlight: rgba(255, 255, 255, 0.78);
   /* 3-D button tokens — hue/sat/lit kept separate so dark mode only overrides lit */
   --btn-hue: 210;
   --btn-sat: 72%;
@@ -39,6 +40,7 @@
 /* Dark tokens — set by html.dark (ThemeProvider) or system preference */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    --shimmer-highlight: rgba(255, 255, 255, 0.06);
     --bg:             #0B0B10;
     --bg-elevated:    #111118;
     --bg-secondary:   #181820;
@@ -61,6 +63,7 @@
 }
 
 html.dark {
+  --shimmer-highlight: rgba(255, 255, 255, 0.06);
   --bg:             #0B0B10;
   --bg-elevated:    #111118;
   --bg-secondary:   #181820;
@@ -379,4 +382,118 @@ h1, h2, h3, .font-display {
   --lift:          4px;
   --lift-hover:    6px;
   --lift-press:    1px;
+}
+
+/* ── Page fade transition ── */
+@keyframes pageFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.page-fade {
+  animation: pageFade 200ms ease-out both;
+}
+
+/* ── Card staggered entrance (delay set via inline style) ── */
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.card-anim {
+  animation: cardEnter 250ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+/* ── Skeleton shimmer (replaces animate-pulse) ── */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+.skeleton-line {
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 25%,
+    var(--shimmer-highlight) 50%,
+    var(--bg-secondary) 75%
+  );
+  background-size: 1200px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ── Bookmark spring bounce ── */
+@keyframes bookmarkPop {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.32); }
+  60%  { transform: scale(0.88); }
+  80%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.bookmark-pop {
+  animation: bookmarkPop 280ms cubic-bezier(0.3, 0.7, 0.4, 1.5) both;
+}
+
+/* ── Global focus-visible ring (offset, never inline) ── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* Inputs delegate focus ring to their container */
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+
+/* ── Magnetic buttons ── */
+.magnetic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.72rem 1.6rem;
+  border-radius: 9999px;
+  font-family: 'Sora', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.025em;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  text-decoration: none;
+  background-color: var(--accent);
+  box-shadow:
+    0 4px 20px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  /* magnetic transform is set via JS; the transition makes it springy */
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  will-change: transform;
+}
+.magnetic-btn:hover {
+  background-color: var(--accent-hover);
+  box-shadow:
+    0 8px 32px rgba(38, 119, 199, 0.40),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+.magnetic-btn:active {
+  box-shadow:
+    0 2px 10px var(--accent-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+/* ── Popular search pill: active + focus states ── */
+.pill-search {
+  transition: border-color 150ms ease-out, color 150ms ease-out,
+              background-color 150ms ease-out, transform 120ms ease-out;
+}
+.pill-search:active {
+  background-color: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(0.95);
+}
+.pill-search:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
 }

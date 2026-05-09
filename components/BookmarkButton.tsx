@@ -13,6 +13,7 @@ export default function BookmarkButton({
   size?: "sm" | "md";
 }) {
   const [saved, setSaved] = useState(false);
+  const [bouncing, setBouncing] = useState(false);
 
   useEffect(() => {
     setSaved(isBookmarked(trial.nctId));
@@ -22,6 +23,7 @@ export default function BookmarkButton({
     e.preventDefault();
     e.stopPropagation();
     setSaved(toggleBookmark(trial));
+    setBouncing(true);
   }
 
   const iconSize = size === "md" ? 18 : 15;
@@ -30,14 +32,34 @@ export default function BookmarkButton({
   return (
     <button
       onClick={handleClick}
+      onAnimationEnd={() => setBouncing(false)}
       aria-label={saved ? "Remove bookmark" : "Bookmark this trial"}
-      className={`${btnSize} rounded-lg border transition-all ${
+      aria-pressed={saved}
+      className={`${btnSize} rounded-lg border transition-[background-color,border-color,color] duration-200 ease-out ${bouncing ? "bookmark-pop" : ""} ${
         saved
           ? "bg-[#2563EB] dark:bg-[#5B9BFF] border-[#2563EB] dark:border-[#5B9BFF] text-white"
           : "bg-white dark:bg-[#181820] border-[#E5E7EB] dark:border-[#222232] text-[#6B7280] dark:text-[#8686A8] hover:border-[#2563EB] dark:hover:border-[#5B9BFF] hover:text-[#2563EB] dark:hover:text-[#5B9BFF]"
       }`}
     >
-      <Bookmark size={iconSize} fill={saved ? "currentColor" : "none"} strokeWidth={2} />
+      {/* Cross-fade between outline and filled — avoids hard swap */}
+      <span className="relative block" style={{ width: iconSize, height: iconSize }}>
+        <Bookmark
+          size={iconSize}
+          fill="none"
+          strokeWidth={2}
+          className="absolute inset-0 transition-opacity duration-200"
+          style={{ opacity: saved ? 0 : 1 }}
+          aria-hidden="true"
+        />
+        <Bookmark
+          size={iconSize}
+          fill="currentColor"
+          strokeWidth={2}
+          className="absolute inset-0 transition-opacity duration-200"
+          style={{ opacity: saved ? 1 : 0 }}
+          aria-hidden="true"
+        />
+      </span>
     </button>
   );
 }

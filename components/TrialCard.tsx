@@ -18,21 +18,27 @@ function getSnippet(text?: string): string {
   return sentences.slice(0, 2).join(" ").slice(0, 240);
 }
 
-export default function TrialCard({ trial }: { trial: Trial }) {
+export default function TrialCard({ trial, index = 0 }: { trial: Trial; index?: number }) {
   const location = getFirstLocation(trial);
   const snippet = getSnippet(trial.briefSummary);
   const extraLocations = trial.locations.length > 1 ? `+${trial.locations.length - 1} more` : null;
+  const delay = `${Math.min(index, 9) * 45}ms`;
 
   return (
     <Link href={`/trial/${trial.nctId}`} className="block group">
-      <div className="
-        bg-white dark:bg-[#111118]
-        border border-[#E5E7EB] dark:border-[#222232]
-        rounded-xl p-5 shadow-sm
-        hover:shadow-md hover:border-[#2563EB]/30 dark:hover:border-[#5B9BFF]/30
-        dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.7)]
-        transition-all duration-200
-      ">
+      <div
+        className="
+          card-anim
+          bg-white dark:bg-[#111118]
+          border border-[#E5E7EB] dark:border-[#222232]
+          rounded-2xl p-5 shadow-sm
+          hover:shadow-md hover:border-[#2563EB]/30 dark:hover:border-[#5B9BFF]/30
+          hover:-translate-y-[3px]
+          dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.7)]
+          transition-[transform,box-shadow,border-color] duration-200 ease-out
+        "
+        style={{ animationDelay: delay }}
+      >
         {/* Top row */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2 flex-wrap">

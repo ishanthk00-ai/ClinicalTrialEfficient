@@ -65,7 +65,7 @@ export default function SearchBar({
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
-      <div className="bg-white dark:bg-[#111118] border border-[#E5E7EB] dark:border-[#222232] rounded-2xl shadow-md dark:shadow-[0_4px_24px_rgba(0,0,0,0.6)] hover:shadow-lg dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.7)] transition-shadow overflow-hidden focus-within:border-[#2563EB] dark:focus-within:border-[#5B9BFF] focus-within:ring-2 focus-within:ring-[#2563EB]/20 dark:focus-within:ring-[#5B9BFF]/20">
+      <div className="group bg-white dark:bg-[#111118] border border-[#E5E7EB] dark:border-[#222232] rounded-2xl shadow-md dark:shadow-[0_4px_24px_rgba(0,0,0,0.6)] hover:shadow-lg dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.7)] transition-[box-shadow,border-color] focus-within:border-[#2563EB] dark:focus-within:border-[#5B9BFF] focus-within:ring-2 focus-within:ring-[#2563EB]/20 dark:focus-within:ring-[#5B9BFF]/20">
         {/* Condition input */}
         <div className="flex items-center px-5 pt-4 pb-2 gap-3">
           <Search size={18} className="text-[#9CA3AF] dark:text-[#44445E] shrink-0" />
@@ -88,8 +88,8 @@ export default function SearchBar({
         {/* Divider */}
         <div className="mx-5 h-px bg-[#F3F4F6] dark:bg-[#191924]" />
 
-        {/* Location input */}
-        <div className="flex items-center px-5 pt-2 pb-4 gap-3">
+        {/* Location input — expands 3px on focus */}
+        <div className="flex items-center px-5 pt-2 pb-4 group-focus-within:pb-[19px] transition-[padding-bottom] duration-150 ease-out gap-3">
           <MapPin size={18} className="text-[#9CA3AF] dark:text-[#44445E] shrink-0" />
           <input
             ref={locationRef}
