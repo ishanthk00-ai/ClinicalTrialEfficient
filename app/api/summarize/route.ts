@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import Groq from "groq-sdk";
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const client = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 export async function POST(req: NextRequest) {
   try {
@@ -33,14 +33,13 @@ Please respond with a JSON object (no markdown, just the raw JSON) with exactly 
 
 For qualify and notQualify: extract the most important criteria from the eligibility text above. Each bullet should be a complete, plain-English sentence starting with a condition (e.g. "You have been diagnosed with...", "You are between 18 and 65 years old"). Include 3-6 bullets per list. If criteria are not available, return empty arrays.`;
 
-    const message = await client.messages.create({
-      model: "claude-haiku-4-5-20251001",
+    const response = await client.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
       max_tokens: 1024,
       messages: [{ role: "user", content: prompt }],
     });
 
-    const text =
-      message.content[0].type === "text" ? message.content[0].text : "";
+    const text = response.choices[0].message.content ?? "";
 
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
