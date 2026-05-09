@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
 import AIAgent from "@/components/AIAgent";
@@ -28,7 +29,17 @@ export default function HomePage() {
 
   return (
     <>
-      <main className="hero-bg flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-4 py-16">
+      <main className="hero-bg relative flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-4 py-16 overflow-hidden">
+        {/* Background network diagram */}
+        <Image
+          src="/clinical-trials.webp"
+          alt=""
+          fill
+          className="object-cover opacity-[0.08] pointer-events-none select-none"
+          priority
+          aria-hidden="true"
+        />
+
         {/* Hero */}
         <div className="text-center mb-12 max-w-2xl">
           <p className="text-xs font-semibold tracking-widest text-[#2563EB] uppercase mb-4">
